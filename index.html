@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学学習ポータル</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>数学学習ポータル</h1>
+        <nav>
+            <button onclick="renderUnits('math1')">数学Ⅰ</button>
+            <button onclick="renderUnits('math2')">数学Ⅱ</button>
+            <button onclick="renderUnits('math3')">数学Ⅲ</button>
+            <button onclick="renderUnits('mathA')">数学A</button>
+            <button onclick="renderUnits('mathB')">数学B</button>
+            <button onclick="renderUnits('mathC')">数学C</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2 id="subject-title">数学Ⅰ</h2>
+        <div id="unit-container" class="container">
+            </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
