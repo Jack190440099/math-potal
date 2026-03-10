@@ -9,8 +9,8 @@ const data = {
     common: ["2025年度"]
 };
 
-// リンク管理（例：common_01_d1 = 共通テスト2025年度の大問1）
 const links = {
+    // リンクの例：common_01_d1（共通テスト2025年度の第1問）
     "common_01_d1": "#",
     "common_01_d2": "#",
     "common_01_d3": "#",
@@ -27,41 +27,35 @@ function renderUnits(subjectKey) {
         mathA: "数学A", mathB: "数学B", mathC: "数学C",
         common: "共通テスト解説"
     };
-    title.innerText = subjectNames[subjectKey] || "カテゴリー";
+    title.innerText = subjectNames[subjectKey];
 
     const unitList = data[subjectKey] || [];
     container.innerHTML = unitList.map((unitName, i) => {
         const unitId = `${subjectKey}_${String(i + 1).padStart(2, '0')}`;
         
-        // 共通テスト解説（common）の場合だけ、大問1〜5のボタンを表示する
+        // --- 共通テスト解説の場合：大問1〜5を表示 ---
         if (subjectKey === 'common') {
             return `
                 <div class="unit-card">
-                    <div>
-                        <div class="section-num">CHAPTER ${String(i + 1).padStart(2, '0')}</div>
-                        <h3 class="unit-title">${unitName}</h3>
-                    </div>
-                    <div class="btn-grid">
-                        <a href="${links[unitId+'_d1'] || '#'}" target="_blank" class="btn-daimon">大問１</a>
-                        <a href="${links[unitId+'_d2'] || '#'}" target="_blank" class="btn-daimon">大問２</a>
-                        <a href="${links[unitId+'_d3'] || '#'}" target="_blank" class="btn-daimon">大問３</a>
-                        <a href="${links[unitId+'_d4'] || '#'}" target="_blank" class="btn-daimon">大問４</a>
-                        <a href="${links[unitId+'_d5'] || '#'}" target="_blank" class="btn-daimon">大問５</a>
+                    <h3 class="unit-title">${unitName}</h3>
+                    <div class="btn-group">
+                        <a href="${links[unitId+'_d1'] || '#'}" target="_blank" class="btn btn-daimon">第1問</a>
+                        <a href="${links[unitId+'_d2'] || '#'}" target="_blank" class="btn btn-daimon">第2問</a>
+                        <a href="${links[unitId+'_d3'] || '#'}" target="_blank" class="btn btn-daimon">第3問</a>
+                        <a href="${links[unitId+'_d4'] || '#'}" target="_blank" class="btn btn-daimon">第4問</a>
+                        <a href="${links[unitId+'_d5'] || '#'}" target="_blank" class="btn btn-daimon">第5問</a>
                     </div>
                 </div>
             `;
         }
 
-        // それ以外の通常科目（動画・プリントボタン）
+        // --- 通常の数学科目の場合：解説動画・プリントを表示 ---
         return `
             <div class="unit-card">
-                <div>
-                    <div class="section-num">SECTION ${String(i + 1).padStart(2, '0')}</div>
-                    <h3 class="unit-title">${unitName}</h3>
-                </div>
-                <div class="btn-group" style="display:flex; gap:10px;">
-                    <a href="#" class="btn-daimon" style="flex:1; text-align:center;">▶ 解説動画</a>
-                    <a href="#" class="btn-daimon" style="flex:1; text-align:center; background:var(--main-blue); color:white;">📄 プリント</a>
+                <h3 class="unit-title">${unitName}</h3>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-normal">▶ 解説動画</a>
+                    <a href="#" class="btn btn-normal fill">📄 プリント</a>
                 </div>
             </div>
         `;
