@@ -1,4 +1,4 @@
-// 単元データ
+// 【単元データ】
 const data = {
     math1: ["数と式", "集合と論理", "２次関数", "図形と計量", "データの分析"],
     math2: ["式と証明", "複素数と方程式", "図形と方程式", "三角関数", "指数関数と対数関数", "微分法と積分法"],
@@ -6,39 +6,50 @@ const data = {
     mathA: ["場合の数と確率", "図形の性質", "数学と人間の活動"],
     mathB: ["数列", "統計的な推測"],
     mathC: ["平面上のベクトル", "空間のベクトル", "複素数平面", "式と曲線"],
-    common: ["共通テスト・数学ⅠA予想演習", "共通テスト・数学ⅡBC予想演習", "共通テスト・頻出解法ポイント"],
-    exercise: ["計算力強化トレーニング", "入試基礎演習 第1回", "入試基礎演習 第2回", "発展問題演習"]
+    // 共通テスト解説の中身
+    common: ["2025年度 共通テスト", "2024年度 共通テスト", "2023年度 共通テスト"],
+    // 演習の中身
+    exercise: ["計算力強化トレーニング", "入試基礎演習 第1回", "入試基礎演習 第2回"]
 };
 
-// リンク管理
+// 【リンク管理】
+// 例： "common_01" は「共通テスト解説」の1番目（2025年度）に対応します
 const links = {
-    // ここに math1_01: { video: "...", pdf: "..." } などを追加していきます
+    "math1_01": { video: "#", pdf: "#" }
 };
 
 function renderUnits(subjectKey) {
     const container = document.getElementById('unit-container');
     const title = document.getElementById('subject-title');
-    if (!container || !title) return;
-
+    
+    // 表示用の名前リスト
     const subjectNames = {
-        math1: "数学Ⅰ", math2: "数学Ⅱ", math3: "数学Ⅲ", 
-        mathA: "数学A", mathB: "数学B", mathC: "数学C",
-        common: "共通テスト対策",
+        math1: "数学Ⅰ",
+        math2: "数学Ⅱ",
+        math3: "数学Ⅲ",
+        mathA: "数学A",
+        mathB: "数学B",
+        mathC: "数学C",
+        common: "共通テスト解説",
         exercise: "演習問題"
     };
-    
-    // タイトルの設定（リストにないキーが来たら「不明」とする）
-    title.innerText = subjectNames[subjectKey] || "不明なカテゴリー";
 
-    // データの取得（undefined防止のための空配列ガード）
+    // 1. タイトルの書き換え
+    title.innerText = subjectNames[subjectKey] || "カテゴリー";
+
+    // 2. データの取得（ガード処理）
     const unitList = data[subjectKey] || [];
 
+    // 3. 画面のクリア
+    container.innerHTML = ""; 
+
     if (unitList.length === 0) {
-        container.innerHTML = "<p style='text-align:center;'>現在、このカテゴリーにデータはありません。</p>";
+        container.innerHTML = "<p style='text-align:center;'>データが準備中、または存在しません。</p>";
         return;
     }
 
-    container.innerHTML = unitList.map((unitName, i) => {
+    // 4. カードの生成
+    const htmlContent = unitList.map((unitName, i) => {
         const unitId = `${subjectKey}_${String(i + 1).padStart(2, '0')}`;
         const unitLinks = links[unitId] || { video: "#", pdf: "#" };
         
@@ -55,10 +66,12 @@ function renderUnits(subjectKey) {
             </div>
         `;
     }).join('');
-    
+
+    container.innerHTML = htmlContent;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// 初期表示（合言葉）
 document.addEventListener('DOMContentLoaded', () => {
     const keyword = "Teikyokani";
     const userInput = prompt("合言葉を入力してください");
