@@ -4,12 +4,20 @@ const data = {
     math3: ["関数", "極限", "微分法", "微分法の応用", "積分法", "積分法の応用"],
     mathA: ["場合の数と確率", "図形の性質", "数学と人間の活動"],
     mathB: ["数列", "統計的な推測"],
-    mathC: ["平面上のベクトル", "空間のベクトル", "複素数平面", "式と曲線"]
+    mathC: ["平面上のベクトル", "空間のベクトル", "複素数平面", "式と曲線"],
+    
+    // 共通テスト用の項目（自由に変更してください）
+    common: ["共通テスト・数学ⅠA予想演習", "共通テスト・数学ⅡBC予想演習", "共通テスト・頻出解法ポイント"],
+    
+    // 演習用の項目（自由に変更してください）
+    exercise: ["計算力強化トレーニング", "入試基礎演習 第1回", "入試基礎演習 第2回", "発展問題演習"]
 };
 
-// ここにURLを入れます。空欄のままでもボタンは出ます。
+// リンク管理（共通テストや演習のURLもここに追加できます）
 const links = {
-    "math1_01": { video: "#", pdf: "#", common: "#", exercise: "#" }
+    "math1_01": { video: "#", pdf: "#" },
+    "common_01": { video: "#", pdf: "#" },
+    "exercise_01": { video: "#", pdf: "#" }
 };
 
 function renderUnits(subjectKey) {
@@ -17,12 +25,18 @@ function renderUnits(subjectKey) {
     const title = document.getElementById('subject-title');
     if (!container || !title) return;
 
-    const subjectNames = { math1: "数学Ⅰ", math2: "数学Ⅱ", math3: "数学Ⅲ", mathA: "数学A", mathB: "数学B", mathC: "数学C" };
+    const subjectNames = {
+        math1: "数学Ⅰ", math2: "数学Ⅱ", math3: "数学Ⅲ", 
+        mathA: "数学A", mathB: "数学B", mathC: "数学C",
+        common: "共通テスト対策",
+        exercise: "演習問題"
+    };
+    
     title.innerText = subjectNames[subjectKey];
 
     container.innerHTML = data[subjectKey].map((unitName, i) => {
         const unitId = `${subjectKey}_${String(i + 1).padStart(2, '0')}`;
-        const unitLinks = links[unitId] || { video: "#", pdf: "#", common: "#", exercise: "#" };
+        const unitLinks = links[unitId] || { video: "#", pdf: "#" };
         
         return `
             <div class="unit-card">
@@ -33,8 +47,6 @@ function renderUnits(subjectKey) {
                 <div class="btn-group">
                     <a href="${unitLinks.video}" target="_blank" class="btn btn-video">▶ 動画</a>
                     <a href="${unitLinks.pdf}" target="_blank" class="btn btn-pdf">📄 プリント</a>
-                    <a href="${unitLinks.common}" target="_blank" class="btn btn-common">✍ 共通テ</a>
-                    <a href="${unitLinks.exercise}" target="_blank" class="btn btn-exercise">💪 演習</a>
                 </div>
             </div>
         `;
