@@ -51,7 +51,7 @@ const links = {
     // 数学1
     "math1_01": { video: "#", pdf: "#" }, "math1_02": { video: "#", pdf: "#" }, 
     "math1_03": { video: "#", pdf: "#" }, "math1_04": { video: "#", pdf: "#" }, 
-    "math1_05": { video: "#", pdf: "#" },
+    "math1_05": { video: "https://www.youtube.com/playlist?list=PLib7BLwcvXJbozlWLJh0aXwJ4cFZW3B1v", pdf: "#" },
 
     // 数学2
     "math2_01": { video: "#", pdf: "#" }, "math2_02": { video: "#", pdf: "#" }, 
@@ -116,4 +116,5 @@ document.addEventListener('DOMContentLoaded', () => {
         alert("合言葉が正しくありません。");
         document.body.innerHTML = "<div style='text-align:center; padding-top:100px;'><h1>認証が必要です</h1></div>";
     }
+
 });
