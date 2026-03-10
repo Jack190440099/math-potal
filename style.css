@@ -1,18 +1,20 @@
 :root {
     --main-blue: #0047AB;
-    --accent-orange: #ff9900;
-    --accent-green: #28a745;
+    --accent-blue: #00d4ff;
     --bg-color: #f8fbff;
+    --text-main: #1a2a3a;
 }
 
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: "Helvetica Neue", Arial, sans-serif;
     background-color: var(--bg-color);
-    background-image: radial-gradient(circle at 10% 10%, rgba(0, 71, 171, 0.02) 0%, transparent 20%),
-                      linear-gradient(rgba(0, 71, 171, 0.05) 1.5px, transparent 1.5px),
-                      linear-gradient(90deg, rgba(0, 71, 171, 0.05) 1.5px, transparent 1.5px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(0, 71, 171, 0.02) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 71, 171, 0.02) 0%, transparent 20%),
+        linear-gradient(rgba(0, 71, 171, 0.05) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(0, 71, 171, 0.05) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
     background-attachment: fixed;
 }
 
@@ -24,54 +26,38 @@ header {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
 }
 
-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
-
-nav button {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 10px 15px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+nav button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; color: white; cursor: pointer; font-weight: bold; transition: 0.3s; }
 nav button:hover { background: white; color: var(--main-blue); }
 
-/* 特別ボタン用のスタイル */
-nav button.nav-special {
-    background: rgba(255, 153, 0, 0.2);
-    border-color: var(--accent-orange);
-}
-nav button.nav-special:hover { background: var(--accent-orange); color: white; }
-
 main { padding: 2rem 5vw; }
-#subject-title { text-align: center; color: var(--main-blue); margin-bottom: 2rem; font-size: 2rem; }
+#subject-title { text-align: center; color: var(--main-blue); margin-bottom: 3rem; }
 
-.container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.container { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); gap: 2rem; }
 
 .unit-card {
     background: white;
     border-top: 5px solid var(--main-blue);
     padding: 1.5rem;
+    position: relative;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px;
 }
-
-.section-num { font-size: 0.8rem; color: var(--main-blue); font-weight: bold; }
-.unit-title { font-size: 1.2rem; margin: 10px 0 20px 0; }
-
-.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.btn {
-    text-align: center;
-    padding: 10px 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.8rem;
-    border: 2px solid;
-    border-radius: 4px;
-    transition: 0.2s;
+.unit-card::before {
+    content: "y = ax² + bx + c";
+    position: absolute; top: 10px; right: 15px; font-size: 0.7rem; color: rgba(0, 71, 171, 0.05); font-style: italic;
 }
+.unit-card::after { content: "Q.E.D."; position: absolute; bottom: 5px; right: 10px; font-size: 0.6rem; color: #ddd; }
 
+.section-num { font-size: 0.8rem; color: var(--main-blue); font-weight: bold; margin-bottom: 5px; }
+.unit-title { font-size: 1.25rem; margin: 0 0 20px 0; line-height: 1.4; }
+
+.btn-group { display: flex; gap: 10px; }
+.btn { flex: 1; text-align: center; padding: 12px 5px; text-decoration: none; font-weight: bold; font-size: 0.85rem; border: 2px solid; transition: 0.3s; }
 .btn-video { border-color: #ff0000; color: #ff0000; }
 .btn-video:hover { background: #ff0000; color: white; }
 .btn-pdf { border-color: var(--main-blue); background: var(--main-blue); color: white; }
+.btn-pdf:hover { opacity: 0.8; }
