@@ -1,51 +1,19 @@
 /**
- * ご指定いただいた数学Ⅰ〜Cの全単元リストです。
- * 配列の順番通りに SECTION 01, 02... と自動表示されます。
+ * 単元リスト
  */
 const data = {
-    math1: [
-        "数と式",
-        "集合と論理",
-        "２次関数",
-        "図形と計量",
-        "データの分析"
-    ],
-    math2: [
-        "式と証明",
-        "複素数と方程式",
-        "図形と方程式",
-        "三角関数",
-        "指数関数と対数関数",
-        "微分法と積分法"
-    ],
-    math3: [
-        "関数",
-        "極限",
-        "微分法",
-        "微分法の応用",
-        "積分法",
-        "積分法の応用"
-    ],
-    mathA: [
-        "場合の数と確率",
-        "図形の性質",
-        "数学と人間の活動"
-    ],
-    mathB: [
-        "数列",
-        "統計的な推測"
-    ],
-    mathC: [
-        "平面上のベクトル",
-        "空間のベクトル",
-        "複素数平面",
-        "式と曲線"
-    ]
+    math1: ["数と式", "集合と論理", "２次関数", "図形と計量", "データの分析"],
+    math2: ["式と証明", "複素数と方程式", "図形と方程式", "三角関数", "指数関数と対数関数", "微分法と積分法"],
+    math3: ["関数", "極限", "微分法", "微分法の応用", "積分法", "積分法の応用"],
+    mathA: ["場合の数と確率", "図形の性質", "数学と人間の活動"],
+    mathB: ["数列", "統計的な推測"],
+    mathC: ["平面上のベクトル", "空間のベクトル", "複素数平面", "式と曲線"],
+    // 共通テスト解説の中身
+    common: ["第１問", "第２問", "第３問", "第４問"]
 };
 
 /**
  * リンク管理オブジェクト
- * 各単元のボタンに紐付けるURLをここに記述してください。
  */
 const links = {
     // 数学1
@@ -58,24 +26,10 @@ const links = {
     "math2_03": { video: "#", pdf: "#" }, "math2_04": { video: "#", pdf: "#" }, 
     "math2_05": { video: "#", pdf: "#" }, "math2_06": { video: "#", pdf: "#" },
 
-    // 数学3
-    "math3_01": { video: "#", pdf: "#" }, "math3_02": { video: "#", pdf: "#" }, 
-    "math3_03": { video: "#", pdf: "#" }, "math3_04": { video: "#", pdf: "#" }, 
-    "math3_05": { video: "#", pdf: "#" }, "math3_06": { video: "#", pdf: "#" },
-
-    // 数学A
-    "mathA_01": { video: "#", pdf: "#" }, "mathA_02": { video: "#", pdf: "#" }, 
-    "mathA_03": { video: "#", pdf: "#" },
-
-    // 数学B
-    "mathB_01": { video: "#", pdf: "#" }, "mathB_02": { video: "#", pdf: "#" },
-
-    // 数学C
-    "mathC_01": { video: "#", pdf: "#" }, "mathC_02": { video: "#", pdf: "#" }, 
-    "mathC_03": { video: "#", pdf: "#" }, "mathC_04": { video: "#", pdf: "#" }
+    // 共通テスト解説用のリンク例
+    "common_01": { video: "#", pdf: "#" }, // 第１問
+    "common_02": { video: "#", pdf: "#" }  // 第２問
 };
-
-// --- 以下、描画関数と初期化処理（前回と同じ） ---
 
 function renderUnits(subjectKey) {
     const container = document.getElementById('unit-container');
@@ -84,11 +38,17 @@ function renderUnits(subjectKey) {
 
     const subjectNames = {
         math1: "数学Ⅰ", math2: "数学Ⅱ", math3: "数学Ⅲ", 
-        mathA: "数学A", mathB: "数学B", mathC: "数学C"
+        mathA: "数学A", mathB: "数学B", mathC: "数学C",
+        common: "共通テスト解説"
     };
-    title.innerText = subjectNames[subjectKey];
+    
+    // カテゴリー名を書き換え
+    title.innerText = subjectNames[subjectKey] || "カテゴリー";
 
-    container.innerHTML = data[subjectKey].map((unitName, i) => {
+    // データが空の場合のガード
+    const unitList = data[subjectKey] || [];
+    
+    container.innerHTML = unitList.map((unitName, i) => {
         const unitId = `${subjectKey}_${String(i + 1).padStart(2, '0')}`;
         const unitLinks = links[unitId] || { video: "#", pdf: "#" };
         return `
